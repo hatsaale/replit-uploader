@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: drm-uploader-bot
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && pip install pytube
+    startCommand: chmod +x start.sh && ./start.sh
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.2
+      - key: API_ID
+        fromGroup: secrets
+      - key: API_HASH
+        fromGroup: secrets
+      - key: BOT_TOKEN
+        fromGroup: secrets
+      - key: AUTH_USERS
+        fromGroup: secrets
+      - key: COOKIES_FILE_PATH
+        value: youtube_cookies.txt
+    disk:
+      name: data
+      mountPath: /tmp
+      sizeGB: 1
